@@ -2,6 +2,15 @@ import threading
 import time
 import socket
 
+# Criando um socket TCP/IP
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# Vinculando o socket ao endereço e porta
+server_socket.bind(('localhost', 12345))
+
+# Escutando por conexões
+server_socket.listen(5)
+print("Servidor escutando na porta...")
+
 
 def multiplasConexoes(nome, tempo):
     print(f'Thread {nome} iniciada.')
@@ -12,15 +21,6 @@ def multiplasConexoes(nome, tempo):
 
 def dialogo():
     
-    # Criando um socket TCP/IP
-    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    # Vinculando o socket ao endereço e porta
-    server_socket.bind(('localhost', 12345))
-
-    # Escutando por conexões
-    server_socket.listen(5)
-    print("Servidor escutando na porta...")
-
     # Aceitando conexões de clientes
     while True:
         
