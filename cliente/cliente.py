@@ -6,15 +6,23 @@ client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 12345))
 
 
-# Enviando mensagem inicial para o servidor
-message = input('digite  <')
-client_socket.sendall(message.encode())
+isOnline = input('IsOnline?')
+client_socket.sendall(isOnline.encode())
 
-if message == "out":
-    client_socket.close()
+while isOnline!="no":
+    # Enviando mensagem para o servidor
+    message = input('digite:')
+    client_socket.sendall(message.encode())
 
-# Recebendo resposta do servidor , decode da msg do servidor
-data = client_socket.recv(1024)
-print(f"Resposta do servidor > {data.decode()}")
+    # Recebendo resposta do servidor , decode da msg do servidor
+    data = client_socket.recv(1024)
+    print(f"Resposta do servidor --> {data.decode()}")
+
+    # encerrando conexao pelo cliente
+    if message == "out":
+        data = client_socket.recv(1024)
+        print(f"servidor desconcectado > {data.decode()}")
+        break
+
 
 client_socket.close()
